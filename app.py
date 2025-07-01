@@ -36,10 +36,19 @@ input_df = pd.DataFrame([{
     "Type": store_type
 }])
 
-# Encode and scale
-cat_cols = ["IsHoliday_y", "Type"]
-encoded = encoder.transform(input_df[cat_cols])
-encoded_df = pd.DataFrame(encoded, columns=encoder.get_feature_names_out(cat_cols))
+cat_cols = encoder.feature_names_in_
+
+# Ensure all expected categorical columns are present
+for col in cat_cols:
+    if col not in input_df.columns:
+        input_df[col] = np.nan  # or a default fallback like 'A' or False
+
+# Align column order before encoding
+input_df_cat = input_df[cat_cols]
+encoded = encoder.transform(input_df_cat)
+encoded_df = pd.DataFrame(encoded, columns=encoder.get_feature_names_out(cat_cols), index=input_df.index)
+
+# Replace original categorical columns
 input_df = input_df.drop(columns=cat_cols).join(encoded_df)
 
 # Align columns
