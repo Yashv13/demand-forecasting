@@ -73,6 +73,7 @@ input_df = input_df[expected_cols]
 # 4. Now safely scale
 input_scaled = scaler.transform(input_df)
 
+st.write("📋 Input Summary", input_df)
 
 # Predict
 if st.button("Predict Weekly Sales"):
