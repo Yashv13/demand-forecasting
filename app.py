@@ -57,8 +57,9 @@ if submitted:
     input_df = pd.DataFrame(input_data)
 
     # Step 2: Encode categorical features
-    cat_cols = ["IsHoliday_y", "Type"]
+    cat_cols = encoder.feature_names_in_.tolist()
     encoded = encoder.transform(input_df[cat_cols])
+
     encoded_df = pd.DataFrame(
         encoded, 
         columns=encoder.get_feature_names_out(cat_cols), 
