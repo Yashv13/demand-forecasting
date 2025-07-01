@@ -58,6 +58,18 @@ for col in feature_cols:
 input_df = input_df[feature_cols]
 
 # Scale
+with open("feature_columns.pkl", "rb") as f:
+    expected_columns = joblib.load(f)
+
+# Add missing columns with 0s
+for col in expected_columns:
+    if col not in input_df.columns:
+        input_df[col] = 0
+
+# Drop extra columns not in training
+input_df = input_df[expected_columns]
+
+# Now scale
 input_scaled = scaler.transform(input_df)
 
 # Predict
