@@ -57,7 +57,7 @@ if submitted:
     input_df = pd.DataFrame(input_data)
 
     # Step 2: Encode categorical features
-    cat_cols = encoder.feature_names_in_.tolist()
+    cat_cols = [col for col in encoder.feature_names_in_ if col in input_df.columns]
     encoded = encoder.transform(input_df[cat_cols])
 
     encoded_df = pd.DataFrame(
