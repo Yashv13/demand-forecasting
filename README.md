@@ -1,63 +1,102 @@
 
-# 📊 Walmart Store Sales Forecasting
+# 📈 Walmart Store Sales Forecasting
 
-This project forecasts weekly sales for Walmart stores using historical sales data, economic factors, and holiday information. It leverages data preprocessing, feature engineering, and machine learning (XGBoost) to make accurate predictions. The app is deployed via Streamlit for an interactive experience.
+A machine learning application that predicts weekly sales for Walmart stores using historical sales and markdown data. Built with XGBoost and deployed using Streamlit.
 
-## 🔍 Problem Statement
-Retailers like Walmart need accurate weekly sales forecasts to manage inventory, staffing, and logistics. This project predicts department-level weekly sales for each store using features like markdown events, holidays, temperature, fuel prices, CPI, and unemployment rate.
+🔗 **Live Demo**: [Streamlit App](https://demand-forecasting-frqtr9fvefnqzxoyjdweni.streamlit.app/)
 
-## 📦 Dataset
-The dataset comes from the [Walmart Recruiting - Store Sales Forecasting](https://www.kaggle.com/competitions/walmart-recruiting-store-sales-forecasting) competition on Kaggle and includes:
+---
 
-- `train.csv`: Historical sales data
-- `test.csv`: Test data for submission
-- `features.csv`: Additional features like temperature, CPI, etc.
-- `stores.csv`: Store types and sizes
-- `sampleSubmission.csv`: Format for final predictions
+## 🚀 Project Overview
 
-## 🧠 Approach
+Retail forecasting is essential for inventory planning, marketing strategies, and logistics. This project tackles a real-world Kaggle challenge hosted by Walmart, focusing on predicting weekly sales at a department level across 45 stores using historical data and markdown events.
 
-- Merged datasets on Store, Date, and Dept
-- Performed preprocessing: date parsing, missing value imputation, and encoding
-- Engineered features like holiday effect and store type
-- Trained an XGBoost Regressor for sales prediction
-- Deployed a Streamlit app for live input and prediction
+---
 
-## 🚀 Streamlit App
+## 📂 Project Structure
 
-🔗 Live App: [Click to launch the app](https://demand-forecasting-frqtr9fvefnqzxoyjdweni.streamlit.app/)
-
-### How to Use
-1. Select store, department, and other input features.
-2. Click "Predict Weekly Sales" to see the forecast.
-
-## 🛠️ Tech Stack
-
-- Python (Pandas, NumPy, Scikit-Learn, XGBoost)
-- Streamlit (Web App Interface)
-- GitHub + Streamlit Cloud (Deployment)
-
-## 📁 Project Structure
 ```
-├── app.py
+├── app.py                    # Streamlit application
 ├── model/
-│   ├── xgb_model.pkl
-│   ├── encoder.pkl
-│   ├── scaler.pkl
-│   └── feature_columns.pkl
-├── requirements.txt
-└── README.md
+│   ├── xgb_model.pkl         # Trained XGBoost model
+│   ├── encoder.pkl           # OneHotEncoder for categorical features
+│   ├── scaler.pkl            # StandardScaler for input features
+│   └── feature_columns.pkl   # List of features used for training
+├── requirements.txt          # Python dependencies
+└── README.md                 # Project documentation
 ```
 
-## 🖥️ Run Locally
+---
+
+## 🧠 Model & Features
+
+- **Model Used**: XGBoost Regressor
+- **Feature Engineering**:
+  - One-hot encoding of categorical variables (`Type`, `IsHoliday`)
+  - Scaling of numerical features
+  - Merging datasets (`train.csv`, `features.csv`, `stores.csv`)
+  - Handling of missing values and date formatting
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/Yashv13/demand-forecasting.git
 cd demand-forecasting
+```
+
+### 2. Install dependencies
+
+```bash
 pip install -r requirements.txt
+```
+
+### 3. Run the Streamlit app
+
+```bash
 streamlit run app.py
 ```
 
-## ✍️ Author
-Yash Vora  
-[GitHub](https://github.com/Yashv13)
+---
+
+## 📊 Input Fields (App)
+
+- `Store`: Integer (1–45)
+- `Dept`: Department number
+- `Temperature`: Float (°F)
+- `Fuel_Price`: Float ($)
+- `CPI`: Consumer Price Index
+- `Unemployment`: %
+- `IsHoliday`: Boolean (True/False)
+- `Type`: Store type (`A`, `B`, or `C`)
+
+---
+
+## 📦 Dependencies
+
+- `streamlit`
+- `pandas`
+- `numpy`
+- `scikit-learn`
+- `xgboost`
+- `joblib`
+
+(Full list in `requirements.txt`)
+
+---
+
+## 🙋‍♂️ Author
+
+**Yash Vora**  
+GitHub: [@Yashv13](https://github.com/Yashv13)
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+---
