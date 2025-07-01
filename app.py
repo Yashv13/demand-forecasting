@@ -36,7 +36,7 @@ with st.form("input_form"):
 
 # Prediction logic
 if submitted:
-    # Step 1: Create DataFrame
+    # Create input DataFrame
     input_data = {
         "Store": [Store],
         "Dept": [Dept],
@@ -56,27 +56,26 @@ if submitted:
 
     input_df = pd.DataFrame(input_data)
 
-    # Step 2: Encode categorical features
-    cat_cols = [col for col in encoder.feature_names_in_ if col in input_df.columns]
+    # Encode categorical
+    cat_cols = ["IsHoliday_y", "Type"]
     encoded = encoder.transform(input_df[cat_cols])
-
     encoded_df = pd.DataFrame(
         encoded, 
         columns=encoder.get_feature_names_out(cat_cols), 
         index=input_df.index
     )
+
     input_df = input_df.drop(columns=cat_cols).join(encoded_df)
 
-    # Step 3: Align columns with training
+    # Align columns to training features
     for col in feature_columns:
         if col not in input_df.columns:
             input_df[col] = 0
+    input_df = input_df[feature_columns]
 
-    input_df = input_df[feature_columns]  # Ensure correct order
-
-    # Step 4: Scale input
+    # Scale
     input_scaled = scaler.transform(input_df)
 
-    # Step 5: Predict
+    # Predict
     prediction = model.predict(input_scaled)[0]
     st.success(f"Predicted Weekly Sales: **${prediction:,.2f}**")
