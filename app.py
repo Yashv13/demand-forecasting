@@ -5,10 +5,10 @@ import joblib
 import xgboost as xgb
 
 # Load files
-model = joblib.load("xgb_model.pkl")
-scaler = joblib.load("scaler.pkl")
-encoder = joblib.load("encoder.pkl")
-feature_cols = joblib.load("feature_columns.pkl")
+model = joblib.load("model/xgb_model.pkl")
+scaler = joblib.load("model/scaler.pkl")
+encoder = joblib.load("model/encoder.pkl")
+feature_cols = joblib.load("model/feature_columns.pkl")
 
 st.title("📈 Walmart Sales Forecasting App")
 
