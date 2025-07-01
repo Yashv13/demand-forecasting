@@ -58,19 +58,20 @@ for col in feature_cols:
 input_df = input_df[feature_cols]
 
 # Scale
-with open("feature_columns.pkl", "rb") as f:
-    expected_columns = joblib.load(f)
+# 1. Get expected columns
+expected_cols = scaler.feature_names_in_
 
-# Add missing columns with 0s
-for col in expected_columns:
+# 2. Add any missing columns with 0
+for col in expected_cols:
     if col not in input_df.columns:
         input_df[col] = 0
 
-# Drop extra columns not in training
-input_df = input_df[expected_columns]
+# 3. Drop any unexpected extra columns
+input_df = input_df[expected_cols]
 
-# Now scale
+# 4. Now safely scale
 input_scaled = scaler.transform(input_df)
+
 
 # Predict
 if st.button("Predict Weekly Sales"):
